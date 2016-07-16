@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DroneWeb</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/stylesheets/main.css">
+        <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMBBWc3H4YDViXAZTV_0tcFHwFD6S0png"></script>
+        <script>
+            UPLOADCARE_PUBLIC_KEY = '79db28eecc675805cd05';
+            UPLOADCARE_LOCALE = 'es';
+            UPLOADCARE_TABS = 'file url';
+            UPLOADCARE_IMAGES_ONLY = true;
+            UPLOADCARE_PREVIEW_STEP = true;
+            UPLOADCARE_CLEARABLE = true;
+        </script>
+
+        <script charset="utf-8" src="https://ucarecdn.com/widget/2.9.0/uploadcare/uploadcare.full.min.js"></script>
+    </head>
+    <body>
+        <% if (url === "/") { %>
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+        <% } else { %>
+            <nav class="navbar navbar-inverse navbar-static-top">
+        <% } %>
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/" id="brand"><i class="fa fa-plane" aria-hidden="true"></i> DroneUEX </a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <% if (url === "/") { %>
+                            <li class="active" id="nav-home"><a href=#>Inicio</a></li>
+                            <li><a href=# id="nav-info">Información</a></li>
+                            <li><a href=# id="nav-contact">Contacto</a></li>
+                        <% } else { %>
+                            <li><a href="/">Inicio</a></li>
+                        <% } %>
+                        
+                        <% if (currentUser) { %>
+                            <% if (url === "/works") { %>
+                                <li class="active"><a href="/works">Trabajos</a></li>
+                            <% } else { %>
+                                <li><a href="/works">Trabajos</a></li>
+                            <% } %>
+                        <% } %>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <% if(!currentUser){ %>
+                            <li><a href="/login"><i class="fa fa-user"></i> Entrar</a></li>
+                            <li><a href="/register"><i class="fa fa-user-plus"></i> Registrarse</a></li>
+                        <% } else { %>
+                            <li><a><%=currentUser.name%></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Cuenta<span class="caret"></span></a>
+                                <ul class="dropdown-menu" style="text-align: center">
+                                    <li><a href="/account/<%=currentUser.id%>">Perfil</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="/logout">Salir</a></li>
+                                </ul>
+                            </li>
+                            <!--<li><a href="/account/<%=currentUser.id%>"><i class="fa fa-user-plus"></i> Mi Cuenta</a></li>-->
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </nav>

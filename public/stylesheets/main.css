@@ -1,0 +1,258 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 90px;
+}
+
+#brand {
+    font-size: 1.8em;
+}
+
+.navbar {
+    min-height: 70px;
+    margin-bottom: 0;
+}
+
+.navbar-brand,
+.navbar li a {
+    padding: 0 15px;
+    height: 70px;
+    line-height: 70px;
+    font-size: 1.2em;
+}
+
+.navbar-toggle {
+    margin-top: 15px;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0 15px;
+    text-align: center;
+    background-color: #F8F8FF;
+}
+
+hr{
+    height: 1px;
+    width: 450px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+#home-body {
+    border-left: 5px solid;
+    border-right: 5px solid;
+    border-bottom: 5px solid;
+}
+
+#home-image {
+    background: url(http://dronsfly.com/wp-content/uploads/2016/04/drone-698564-1.jpg);
+    padding: 0 0 0 0;
+    background-size: cover;
+    background-position: center;
+}
+
+#home-image-content {
+    padding-top: 150px;
+    padding-bottom: 180px;
+    color: white;
+    font-size: 2.5em;
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+                 0px 8px 13px rgba(0,0,0,0.1),
+                 0px 18px 23px rgba(0,0,0,0.1);
+}
+
+#home-image-content #title {
+    font-size: 2em;
+}
+
+#home-image-content a {
+    width: 100%;
+    height: 50px;
+    padding-bottom: 50px;
+    border-radius: 10px;
+    font-size: 0.8em;
+}
+
+#home-description {
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+
+#home-description-text {
+    padding-bottom: 30px;
+    font-size: 1.4em;
+}
+
+.thumbnail {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#home-contact {
+    padding: 10px 0 20px;
+    background-color: #DCDCDC;
+}
+
+#contact-text {
+    margin-top: 20px;
+    height: 250px;
+    font-size: 1.3em;
+}
+
+#googleMap {
+    margin: 10px auto;
+    width: 95%;
+    height: 300px; 
+}
+
+#dronelogo {
+    margin: 20px auto 0 auto;
+    background: url(https://i.imgur.com/RRstAna.png);
+    width: 360px;
+    height: 60px;
+    display: block;
+}
+
+.form-group {
+    text-align: left;
+}
+
+#login-form {
+    padding-top: 20px;
+    width: 35%;
+    margin: 0 auto;
+}
+
+#form-button {
+    margin: 25px auto;
+    border-radius: 10px;
+}
+
+#hidden-login-box {
+    width: 30%;
+    margin: 0 auto;
+    font-size: 1em;
+}
+
+#hidden-login {
+    display: none;
+}
+
+#worklist hr, #work-show hr {
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+#worklist, #work-show {
+    padding-top: 30px;
+    height: 100%;
+}
+
+textarea {
+    resize: none
+}
+
+#work-box{
+    min-width: 100%;
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#work-box-image {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#work-box .thumbnail {
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+
+#work-box hr {
+    margin: 10px 0 10px 10px;
+}
+
+#work-box form {
+    text-align: right;
+}
+
+h5 {
+    white-space:pre-wrap
+}
+
+.btn-grey{
+    background-color: #e0e0e0;
+    white-space: normal;
+}
+
+#thumbnail-text a, #thumbnail-text a button{
+    display: inline-block;
+    padding: 6px;
+    margin-right: 5px
+}
+
+#thumbnail-text .dropdown {
+    display: inline;
+}
+
+#delete-button{
+    float: right;
+    padding: 0px;
+}
+
+#delete-button a,
+#delete-button button {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+#delete-button a {
+    height: 30px;
+}
+
+.dropdown-menu a {
+    width: 100%;
+}
+
+#work-author{
+    padding-top: 5px;
+}
+
+#work-author .btn-grey{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    min-width: 100%;
+}
+
+#show-authors h4, #work-author form{
+    display: inline;
+}
+
+#work-author .list-group {
+    margin-top: 22px;
+}
+
+.banner {
+    background: url(http://orig10.deviantart.net/10da/f/2013/110/8/f/untitled_drawing_by_otterxsorrel-d62e4yf.png);
+    width: 100%;
+    height: 125px;
+    background-size: cover;
+    background-position: center;
+}
+
+.banner-content {
+    padding-top: 20px;
+    color: white;
+}
+
+#show-authors {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

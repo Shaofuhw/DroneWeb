@@ -1,0 +1,44 @@
+<% include ../partials/header %>
+
+    <div class="banner text-center">
+        <div class="container banner-content">
+            <h1><%=work.name%></h1>
+        </div>
+    </div>
+
+    <div class="container" id="work-show">
+        <div class="col-xs-12 col-md-3" id="work-author">
+            <div class="list-group">
+                <button id="all-button" class="list-group-item">Descripción</button>
+                <button id="on-button" class="list-group-item">Integrantes</button>
+                <button id="done-button" class="list-group-item">Imágenes</button>
+                <button id="off-button" class="list-group-item">Foro</button>
+            </div>
+            <div class="row container">
+                <a href="/works/<%=work.id%>/edit" class="btn btn-sm btn-info">Editar</a>
+                <% if(work.author.id.equals(currentUser._id)){ %>
+                    <form action="/works/<%=work._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-sm btn-danger">Eliminar</button>
+                    </form>
+                <% } %>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-9">
+            <div id="show-description">
+                <h2>Descripción</h2>
+                <h5><%=work.description%></h5>
+            </div>
+            <div class="row container" id="show-authors">
+                <h3>Integrantes</h3>
+                <i class="glyphicon glyphicon-small glyphicon-chevron-right"></i>
+                <a><h4><%=work.author.name%></h4></a>
+            </div>
+            <div id="show-chat">
+                <form action="/works/<%=work.id%>/messages" method="POST">
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+<% include ../partials/footer %>

@@ -1,0 +1,77 @@
+<% include ../partials/header %>
+
+    <div class="container" id="worklist">
+        <h2>Trabajos</h2>
+        <hr>
+        <div class="row" >
+            <div class="col-xs-12 col-md-3">
+                <div class="list-group">
+                    <button id="all-button" class="list-group-item">Todos</button>
+                    <button id="on-button" class="list-group-item">En Curso</button>
+                    <button id="done-button" class="list-group-item">Completado</button>
+                    <button id="off-button" class="list-group-item">Abandonado</button>
+                </div>
+                <div class="list-group" style="margin: 40px 0 40px 0">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <div class="list-group">
+                    <a class="btn btn-lg btn-success" style="width: 100%; margin-bottom: 30px" href="/works/new">Nuevo Trabajo</a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-9">
+                <% works.forEach(function(work){ %>
+                    <% if(work.status === "En Curso") { %>
+                        <div class="btn btn-grey on work-box" id="work-box">
+                    <% } else if (work.status === "Completado") { %> 
+                        <div class="btn btn-grey done work-box" id="work-box">
+                    <% } else if (work.status === "Abandonado") {%>
+                        <div class="btn btn-grey off work-box" id="work-box">
+                    <% } %>
+                        <div class="col-xs-3" id="work-box-image">
+                            <img class="thumbnail" src="<%= work.thumbnail %>">
+                            <div id="thumbnail-text">
+                                <div class="dropdown col-xs-8" style="padding: 0px">
+                                    <a class="btn 
+                                        <% if (work.status === "En Curso"){ %>
+                                            btn-warning
+                                        <% } else if(work.status === "Completado"){ %>
+                                            btn-success
+                                        <% } else if(work.status === "Abandonado"){ %> 
+                                            btn-danger
+                                        <% } %>
+                                    dropdown-toggle" type="button" data-toggle="dropdown"></a>
+                                    <%=work.status%>
+                                    <% if(work.author.id.equals(currentUser._id)){ %>
+                                        <ul class="dropdown-menu">
+                                            <li id="on-status"><a><button class="btn btn-warning"></button>En Curso</a></li>
+                                            <li id="done-status"><a><button class="btn btn-success"></button>Completado</a></li>
+                                            <li id="off-status"><a><button class="btn btn-danger"></button>Abandonado</a></li>
+                                            <form id="on-form" action="/works/<%=work._id%>?_method=PUT" method="POST" style="display: none">
+                                                <input type="text" name="work[status]" value="En Curso">
+                                            </form>
+                                            <form id="done-form" action="/works/<%=work._id%>?_method=PUT" method="POST" style="display: none">
+                                                <input type="text" name="work[status]" value="Completado">
+                                            </form>
+                                            <form id="off-form" action="/works/<%=work._id%>?_method=PUT" method="POST" style="display: none">
+                                                <input type="text" name="work[status]" value="Abandonado">
+                                            </form>
+                                            <a href="/works/<%=work.id%>" id="edit-href" style="display:none">Editar</a>
+                                        </ul>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-9">
+                            <h4><%=work.name%></h4>
+                            <hr>
+                            <h5><%=work.description%></h5>
+                        </div>
+                    </div>
+                    <br><br>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+    
+    <script src="javascript/works.js"></script>
+<% include ../partials/footer %>

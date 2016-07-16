@@ -1,0 +1,64 @@
+<% include ./partials/header %>
+
+    <div class="container text-center" id="home-body">
+        <div class="row" id="home-image">
+            <div class="col-xs-12" id="home-image-content">
+                <div id="title">Grupo Drones</div>
+                <div id="undertitle">Universidad de Extremadura</div>
+                <hr>
+                <div id="hidden-login-box">
+                    <div id="hidden-login">
+                        <form action="/login" method="POST">
+                            <div class="form-group">
+                                <input type="email" class="form-control" name="username" placeholder="Correo Electrónico" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="password" placeholder="Contraseña" required>
+                            </div>
+                            <button type="submit" class="btn btn-lg btn-primary btn-block" id="form-button">Entrar</button>
+                        </form>
+                    </div>
+                    <% if (!currentUser) { %>
+                        <a class="btn btn-primary" href="#" id="hidden-toggle">Entrar</a>
+                    <% } else { %>
+                        <a class="btn btn-primary" href="/works">Entrar</a>
+                    <% } %>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-xs-12" id="home-description">
+                <p id="home-description-text">
+                    Somos un grupo de trabajo de la Universidad de Extremadura dedicados a la investigación y desarrollo de proyectos relacionados con el mundo de los drones.
+                </p>
+                <div class="col-xs-12 col-md-6 col-lg-4">
+                    <img class="thumbnail" src="http://i.imgur.com/5Nt2cqM.jpg">
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-4">
+                    <img class="thumbnail" src="http://i.imgur.com/RXV0vJU.jpg">
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-4">
+                    <img class="thumbnail" src="http://i.imgur.com/ftL4Evk.jpg">
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-xs-12" id="home-contact">
+                <h1 style='padding-bottom: 20px'>Contacto</h1>
+                <div class="col-xs-12 col-md-6" id="contact-text">
+                    <p>Universidad de Extremadura</p>
+                    <p>Escuela de Ingenierías Industriales</p>
+                    <p>Avda. de Elvas s/n</p>
+                    <p>Badajoz - 06006</p>
+                    <p><i class="fa fa-phone" aria-hidden="true"></i> 924 289 615</p>
+                    <a href="mailto:secretariaeii@unex.es">secretariaeii@unex.es</a>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div id="googleMap"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="javascript/home.js"></script>
+<% include ./partials/footer %>

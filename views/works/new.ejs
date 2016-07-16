@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+
+    <div class="container" id="worklist">
+        <h2>Nuevo Trabajo</h2>
+        <hr>
+        <div class="row" >
+            <div class=col-xs-12>
+                <form action="/works" method="POST">
+                    <div class="form-group">
+                        <label>Titulo</label>
+                        <input type="text" class="form-control" name="title" placeholder="Título" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Imagen</label>
+                        <input type="text" class="form-control" name="image" placeholder="URL de la imagen">
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea class="form-control" rows="10" name="description"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-success btn-block" id="form-button">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<% include ../partials/footer %>
