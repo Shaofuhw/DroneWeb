@@ -39,39 +39,38 @@
                                         <% } else if(work.status === "Abandonado"){ %> 
                                             btn-danger
                                         <% } %>
-                                    dropdown-toggle" type="button" data-toggle="dropdown"></a>
+                                    "></a>
                                     <%=work.status%>
-                                    <% if(work.author.id.equals(currentUser._id)){ %>
-                                        <ul class="dropdown-menu">
-                                            <li id="on-status"><a><button class="btn btn-warning"></button>En Curso</a></li>
-                                            <li id="done-status"><a><button class="btn btn-success"></button>Completado</a></li>
-                                            <li id="off-status"><a><button class="btn btn-danger"></button>Abandonado</a></li>
-                                            <form id="on-form" action="/works/<%=work._id%>?_method=PUT" method="POST" style="display: none">
-                                                <input type="text" name="work[status]" value="En Curso">
-                                            </form>
-                                            <form id="done-form" action="/works/<%=work._id%>?_method=PUT" method="POST" style="display: none">
-                                                <input type="text" name="work[status]" value="Completado">
-                                            </form>
-                                            <form id="off-form" action="/works/<%=work._id%>?_method=PUT" method="POST" style="display: none">
-                                                <input type="text" name="work[status]" value="Abandonado">
-                                            </form>
-                                            <a href="/works/<%=work.id%>" id="edit-href" style="display:none">Editar</a>
-                                        </ul>
-                                    <% } %>
+                                    <ul class="dropdown-menu">
+                                        <li id="on-status"><a><button class="btn btn-warning"></button>En Curso</a></li>
+                                        <li id="done-status"><a><button class="btn btn-success"></button>Completado</a></li>
+                                        <li id="off-status"><a><button class="btn btn-danger"></button>Abandonado</a></li>
+                                    </ul>
+                                    <form id="on-form" action="/works/<%=work._id%>?_method=PUT" method="POST" style="display: none">
+                                        <input type="text" name="work[status]" value="En Curso">
+                                    </form>
+                                    <form id="done-form" action="/works/<%=work._id%>?_method=PUT" method="POST" style="display: none">
+                                        <input type="text" name="work[status]" value="Completado">
+                                    </form>
+                                    <form id="off-form" action="/works/<%=work._id%>?_method=PUT" method="POST" style="display: none">
+                                        <input type="text" name="work[status]" value="Abandonado">
+                                    </form>
+                                    <a href="/works/<%=work.id%>" id="edit-href" style="display:none">Editar</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-9">
                             <h4><%=work.name%></h4>
                             <hr>
-                            <h5><%=work.description%></h5>
+                            <h5><%-work.description.substring(0, 400)%> . . .</h5>
                         </div>
                     </div>
                     <br><br>
+                    
                 <% }) %>
             </div>
         </div>
     </div>
     
-    <script src="javascript/works.js"></script>
+    <script src="javascript/works-index.js"></script>
 <% include ../partials/footer %>

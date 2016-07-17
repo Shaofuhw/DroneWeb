@@ -70,6 +70,7 @@ app.post("/register", confirmPassword, function(req, res){
             passport.authenticate("local")(req, res, function(){
                 user.name       = req.body.name;
                 user.lastname   = req.body.lastname;
+                user.image      = "http://en.upside-art.com/images/empty_profile.png?w=150&h=150"
                 user.save();
                 res.redirect("/works");
             });
@@ -142,13 +143,53 @@ app.put("/works/:id", function(req, res){
     })
 });
 
-app.get("/works/:id", function(req, res){
-    Work.findById(req.params.id, function(err, foundWork){
+app.get("/works/:id", isLoggedIn, function(req, res){
+    Work.findById(req.params.id).populate("messages").exec(function(err, foundWork){
         if(err){
             console.log(err);
             res.redirect("back");
         } else {
             res.render("works/show", {work: foundWork});
+        }
+    });
+});
+
+app.get("/works/:id/edit", isLoggedIn, function(req, res){
+    res.render("works/edit");
+});
+
+//Messages
+
+app.post("/works/:id/messages", function(req, res){
+    Work.findById(req.params.id, function(err, foundWork){
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        } else {
+            Message.create(req.body.message, function(err, message){
+                if(err){
+                    console.log(err);
+                    res.redirect("back");
+                } else {
+                    message.author.id   = req.user._id;
+                    message.author.name = req.user.name;
+                    message.save();
+                    foundWork.messages.push(message);
+                    foundWork.save();
+                    res.redirect("/works/" + foundWork._id);
+                }
+            });
+        }
+    });
+});
+
+app.delete("/works/:id/messages/:message_id", function(req, res){
+    Message.findByIdAndRemove(req.params.message_id, function(err){
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        } else {
+            res.redirect("/works/" + req.params.id);
         }
     });
 });

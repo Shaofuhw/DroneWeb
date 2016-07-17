@@ -13,16 +13,7 @@
                 <button id="chat-button" class="list-group-item">Discusión</button>
                 <button id="images-button" class="list-group-item">Imágenes</button>
                 <button id="authors-button" class="list-group-item">Autores</button>
-                <a class="btn btn-sm
-                    <% if (work.status === "En Curso"){ %>
-                        btn-warning
-                    <% } else if(work.status === "Completado"){ %>
-                        btn-success
-                    <% } else if(work.status === "Abandonado"){ %> 
-                        btn-danger
-                    <% } %>
-                "></a>
-                <%=work.status%>
+                
             </div>
             <div class="row container">
                 <a href="/works/<%=work.id%>/edit" class="btn btn-sm btn-info">Editar</a>

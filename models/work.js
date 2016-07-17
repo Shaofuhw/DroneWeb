@@ -8,7 +8,7 @@ var workSchema = new mongoose.Schema({
     images: [ String ],
     messages: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Comment"
+        ref: "Message"
     }],
     author: {
         id: {
