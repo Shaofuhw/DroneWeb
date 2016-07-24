@@ -11,18 +11,12 @@ var workSchema = new mongoose.Schema({
         ref: "Message"
     }],
     author: {
-        id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
         },
-        name: String
-    },
     collabs: [{
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-        },
-        name: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }]
 });
 

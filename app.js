@@ -108,25 +108,18 @@ app.post("/works", isLoggedIn, function(req, res){
     }
     var description = req.body.description;
     var status      = "En Curso";
-    var author      = {
-        id: req.user._id,
-        name: req.user.name
-    };
+    var author      = req.user._id;
     var newWork = {name: name, thumbnail: image, description: description, status: status, author: author};
     Work.create(newWork, function(err, createdWork){
         if(err){
             console.log(err);
         } else {
-            User.findById(createdWork.author.id, function(err, foundUser){
+            User.findById(req.user._id, function(err, foundUser){
                 if(err){
                     console.log(err);
                     res.redirect("back");
                 } else {
-                    var work = {
-                        id      : createdWork._id,
-                        name    : createdWork.name
-                    };
-                    foundUser.works.push(work);
+                    foundUser.works.push(createdWork);
                     foundUser.save();
                     res.redirect("/works");
                 }
@@ -137,11 +130,13 @@ app.post("/works", isLoggedIn, function(req, res){
 
 //TODO - REMOVE USER LIST OF WORKS
 app.delete("/works/:id", checkWorkOwner, function(req, res){
-    Work.findByIdAndRemove(req.params.id, function(err){
+    Work.findById(req.params.id, function(err, foundWork){
         if(err){
-            res.redirect("/works");
+            res.redirect("back");
         } else {
-            res.redirect("/works");
+            foundWork.remove(function(err){
+                
+            });
         }
     });
 });
@@ -159,16 +154,12 @@ app.put("/works/:id", isLoggedIn, function(req, res){
             if(req.body.collabs){
                 updatedWork.collabs.push(req.body.collabs);
                 updatedWork.save();
-                User.findById(req.body.collabs.id, function(err, foundUser){
+                User.findById(req.body.collabs, function(err, foundUser){
                     if(err){
                         console.log(err);
                         res.redirect("back");
                     } else {
-                        var work = {
-                            id      : updatedWork._id,
-                            name    : updatedWork.name
-                        };
-                        foundUser.works.push(work);
+                        foundUser.works.push(updatedWork);
                         foundUser.save();
                     }
                 });
@@ -179,7 +170,7 @@ app.put("/works/:id", isLoggedIn, function(req, res){
 });
 
 app.get("/works/:id", isLoggedIn, function(req, res){
-    Work.findById(req.params.id).populate("messages author.id collabs.id").exec(function(err, foundWork){
+    Work.findById(req.params.id).populate("messages author collabs").exec(function(err, foundWork){
         if(err){
             console.log(err);
             res.redirect("back");
@@ -190,7 +181,7 @@ app.get("/works/:id", isLoggedIn, function(req, res){
 });
 
 app.get("/works/:id/edit", isLoggedIn, function(req, res){
-    Work.findById(req.params.id).populate("author.id").exec(function(err, foundWork){
+    Work.findById(req.params.id).populate("author collabs").exec(function(err, foundWork){
         if(err){
             console.log(err);
             res.redirect("back");
@@ -239,7 +230,7 @@ app.delete("/works/:id/messages/:message_id", function(req, res){
 //Profiles
 
 app.get("/profiles/:id", isLoggedIn, function(req, res){
-    User.findById(req.params.id, function(err, foundUser){
+    User.findById(req.params.id).populate("works").exec(function(err, foundUser){
         if(err){
             console.log(err);
             res.redirect("back");
@@ -289,7 +280,7 @@ app.get("/profilesearch", function(req, res){
                 foundUsers.forEach(function(user){
                     var coincide = 0;
                     user.works.forEach(function(work){
-                        if(work.id == req.query.workid){
+                        if(work == req.query.workid){
                             coincide = 1;
                         }
                     });
@@ -297,9 +288,8 @@ app.get("/profilesearch", function(req, res){
                         var str = '<form action="/works/' + req.query.workid + '?_method=PUT" method="POST"><h5><img src='
                                 + user.image +' class="img-circle"><a href="/profiles/' + user._id + '">' 
                                 + user.name + ' ' + user.lastname
-                                + '</a><input name="collabs[id]" style="display: none" value="'
-                                + user._id + '"><input name="collabs[name]" style="display:none" value="'
-                                + user.name + '"></h5><button class="btn btn-success btn-sm" style="margin-left: 10px">Añadir</button></form>';
+                                + '</a><input name="collabs" style="display: none" value="'
+                                + user._id + '"></h5><button class="btn btn-success btn-sm" style="margin-left: 10px">Añadir</button></form>';
                         result = result.concat(str);
                     }
                 });
@@ -346,3 +336,4 @@ function checkWorkOwner(req, res, next){
         res.redirect("back");
     }
 }
+

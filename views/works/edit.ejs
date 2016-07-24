@@ -58,14 +58,22 @@
             <div class="col-xs-12 container" id="show-authors" style="display: none">
                 <h3>Autores</h3>
                 <div>
-                    <img src="<%=work.author.id.image%>" class="img-circle">
+                    <img src="<%=work.author.image%>" class="img-circle">
                     <i class="glyphicon glyphicon-small glyphicon-chevron-right"></i>
-                    <a href="/profiles/<%=work.author.id._id%>"><h4><%=work.author.name%></h4></a>
+                    <a href="/profiles/<%=work.author._id%>"><h4><%=work.author.name%></h4></a>
+                    <% work.collabs.forEach(function(collab){ %>
+                        <div style="margin-top: 10px">
+                            <img src="<%=collab.image%>" class="img-circle">
+                            <i class="glyphicon glyphicon-small glyphicon-chevron-right"></i>
+                            <a href="/profiles/<%=collab._id%>"><h4><%=collab.name%></h4></a>
+                        </div>
+                    <% }) %>
                     <h4>Buscar Personas</h4>
                     <input class="form-control" type="text" id="author-search" placeholder="Escribe el nombre de la persona" style="display:inline">
                     <button class="btn btn-md btn-success" style="display:inline" id="author-search-button">Buscar</button>
                     <div id="author-results"></div>
                     <input style="display: none" id="workid" value="<%=work._id%>">
+                    
                 </div>
             </div>
             <div class="col-xs-12 container" id="show-images" style="display: none">

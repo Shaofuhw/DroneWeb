@@ -8,12 +8,9 @@ var userSchema  = new mongoose.Schema({
         lastname:   String,
         image:      String,
         works: [{
-            id: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Work"
-            },
-            name: String
-        }]
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Work"
+            }]
 });
 
 userSchema.plugin(passportLocalMongoose);
