@@ -70,7 +70,7 @@ app.post("/register", confirmPassword, function(req, res){
             passport.authenticate("local")(req, res, function(){
                 user.name       = req.body.name;
                 user.lastname   = req.body.lastname;
-                user.image      = "http://en.upside-art.com/images/empty_profile.png?w=150&h=150"
+                user.image      = "http://en.upside-art.com/images/empty_profile.png?w=150&h=150";
                 user.save();
                 res.redirect("/works");
             });
@@ -101,10 +101,11 @@ app.get("/works/new", isLoggedIn, function(req, res){
 
 app.post("/works", isLoggedIn, function(req, res){
     var name        = req.body.title;
+    var image       = "";
     if(req.body.image){
-        var image   = req.body.image;
+        image   = req.body.image;
     } else {
-        var image   = "https://d3lfzbr90tctqz.cloudfront.net/epi/resource/r/drone-dji-phantom-3-std-2.7k-cam-3-axis-gimbal-blanco/263355cd6dc7e030c2688b1f71b130e362c3fa4ae72525ff679aa83248a85e3d_350";
+        image   = "https://d3lfzbr90tctqz.cloudfront.net/epi/resource/r/drone-dji-phantom-3-std-2.7k-cam-3-axis-gimbal-blanco/263355cd6dc7e030c2688b1f71b130e362c3fa4ae72525ff679aa83248a85e3d_350";
     }
     var description = req.body.description;
     var status      = "En Curso";
@@ -144,19 +145,31 @@ app.delete("/works/:id", checkWorkOwner, function(req, res){
                         function(err){
                             if(err){
                                 console.log(err);
-                            } else {
-                                User.update(
-                                    {_id: {$in: foundWork.collabs}},
-                                    {$pull: {works: foundWork._id}},
-                                    function(err, affected){
-                                        if(err){
-                                            console.log(err);
-                                        }
-                                    }
-                                );
                             }
                         }
                     );
+                    User.update(
+                        {_id: {$in: foundWork.collabs}},
+                        {$pull: {works: foundWork._id}},
+                        function(err, affected){
+                            if(err){
+                                console.log(err);
+                            }
+                        }
+                    );
+                    Message.find({_id: {$in: foundWork.messages}}, function(err, foundMessages){
+                        if(err){
+                            console.log(err);
+                        } else {
+                            foundMessages.forEach(function(message){
+                                message.remove(function(err){
+                                    if(err){
+                                        console.log(err);
+                                    }
+                                });
+                            });
+                        }
+                    });
                     res.redirect("/works");
                 }
             });
