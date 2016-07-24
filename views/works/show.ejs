@@ -62,7 +62,7 @@
             <div class="col-xs-12 container" id="show-chat" style="display: none">
                 <h3>Discusión</h3>
                 <% work.messages.forEach(function(message){ %>
-                    <% if(message.author._id.equals(currentUser._id)) { %>
+                    <% if(message.author.equals(currentUser._id)) { %>
                         <div class="row">
                             <div class="text-right" id="own-message">
                                 <strong>Tú</strong>

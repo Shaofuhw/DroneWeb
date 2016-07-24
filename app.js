@@ -151,8 +151,6 @@ app.delete("/works/:id", checkWorkOwner, function(req, res){
                                     function(err, affected){
                                         if(err){
                                             console.log(err);
-                                        } else {
-                                            console.log(affected);
                                         }
                                     }
                                 );
@@ -166,7 +164,7 @@ app.delete("/works/:id", checkWorkOwner, function(req, res){
     });
 });
 
-app.put("/works/:id", isLoggedIn, function(req, res){
+app.put("/works/:id", checkWorkOwner, function(req, res){
     Work.findByIdAndUpdate(req.params.id, req.body.work, function(err, updatedWork){
         if(err){
             console.log(err);
@@ -205,7 +203,7 @@ app.get("/works/:id", isLoggedIn, function(req, res){
     });
 });
 
-app.get("/works/:id/edit", isLoggedIn, function(req, res){
+app.get("/works/:id/edit", checkWorkOwner, function(req, res){
     Work.findById(req.params.id).populate("author collabs").exec(function(err, foundWork){
         if(err){
             console.log(err);
@@ -229,8 +227,7 @@ app.post("/works/:id/messages", isLoggedIn, function(req, res){
                     console.log(err);
                     res.redirect("back");
                 } else {
-                    message.author.id   = req.user._id;
-                    message.author.name = req.user.name;
+                    message.author  = req.user._id;
                     message.save();
                     foundWork.messages.push(message);
                     foundWork.save();
@@ -241,12 +238,21 @@ app.post("/works/:id/messages", isLoggedIn, function(req, res){
     });
 });
 
-app.delete("/works/:id/messages/:message_id", function(req, res){
-    Message.findByIdAndRemove(req.params.message_id, function(err){
+app.delete("/works/:id/messages/:message_id", checkMessageOwner, function(req, res){
+    Message.findById(req.params.message_id, function(err, foundMessage){
         if(err){
             console.log(err);
-            res.redirect("back");
         } else {
+            foundMessage.remove(function(err){
+                if(err){
+                    console.log(err);
+                } else {
+                    Work.update(
+                        {_id: req.params.id},
+                        {$pull: {messages: foundMessage._id}}
+                    );
+                }
+            });
             res.redirect("/works/" + req.params.id);
         }
     });
@@ -265,7 +271,7 @@ app.get("/profiles/:id", isLoggedIn, function(req, res){
     });
 });
 
-app.get("/profiles/:id/edit", isLoggedIn, function(req, res){
+app.get("/profiles/:id/edit", checkProfileOwner, function(req, res){
     User.findById(req.params.id, function(err, foundUser){
         if(err){
             console.log(err);
@@ -276,7 +282,7 @@ app.get("/profiles/:id/edit", isLoggedIn, function(req, res){
     });
 });
 
-app.put("/profiles/:id", isLoggedIn, function(req, res){
+app.put("/profiles/:id", checkProfileOwner, function(req, res){
     User.findByIdAndUpdate(req.params.id, req.body.user, function(err, updatedUser){
         if(err){
             console.log(err);
@@ -291,7 +297,7 @@ app.put("/profiles/:id", isLoggedIn, function(req, res){
     });
 });
 
-app.get("/profilesearch", function(req, res){
+app.get("/profilesearch", isLoggedIn, function(req, res){
     var name = req.query.search;
     User.find({"name": name}, function(err, foundUsers){
         if(err){
@@ -362,3 +368,38 @@ function checkWorkOwner(req, res, next){
     }
 }
 
+function checkMessageOwner(req, res, next){
+    if(req.isAuthenticated()){
+        Message.findById(req.params.message_id, function(err, foundMessage){
+            if(err){
+                res.redirect("back");
+            } else {
+                if(foundMessage.author.equals(req.user._id)){
+                    next();
+                } else {
+                    res.redirect("back");
+                }
+            }
+        });
+    } else {
+        res.redirect("back");
+    }
+}
+
+function checkProfileOwner(req, res, next){
+    if(req.isAuthenticated()){
+        User.findById(req.params.id, function(err, foundUser){
+            if(err){
+                res.redirect("back");
+            } else {
+                if(foundUser._id.equals(req.user._id)){
+                    next();
+                } else {
+                    res.redirect("back");
+                }
+            }
+        });
+    } else {
+        res.redirect("back");
+    }
+}
