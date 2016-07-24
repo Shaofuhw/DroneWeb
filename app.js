@@ -12,8 +12,8 @@ var express     = require('express'),
     User    = require('./models/user'),
     Work    = require('./models/work'),
     Message = require('./models/message');
-    
-mongoose.connect("mongodb://localhost/drone_web");
+
+mongoose.connect(process.env.DATABASEURL);
     
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
