@@ -10,7 +10,6 @@ $(document).ready(function () {
         $("#show-chat").fadeIn(200);
     }
     
-    
     $("#description-button").click(function(){
         $("#show-description").fadeIn(200);
         $("#show-authors").fadeOut(200);
@@ -40,3 +39,4 @@ $(document).ready(function () {
     });
     
 });
+

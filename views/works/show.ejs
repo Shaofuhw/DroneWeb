@@ -13,23 +13,18 @@
                 <button id="chat-button" class="list-group-item">Discusión</button>
                 <button id="images-button" class="list-group-item">Imágenes</button>
                 <button id="authors-button" class="list-group-item">Autores</button>
-                <a class="btn btn-sm
-                    <% if (work.status === "En Curso"){ %>
+                <button class="btn btn-md 
+                <%  if (work.status === "En Curso"){ %>
                         btn-warning
                     <% } else if(work.status === "Completado"){ %>
                         btn-success
                     <% } else if(work.status === "Abandonado"){ %> 
                         btn-danger
-                    <% } %>
-                "></a>
-                <%=work.status%>
-            </div>
-            <div class="row container">
-                <a href="/works/<%=work.id%>/edit" class="btn btn-sm btn-info">Editar</a>
-                <% if(work.author.id.equals(currentUser._id)){ %>
-                    <form action="/works/<%=work._id%>?_method=DELETE" method="POST">
-                        <button class="btn btn-sm btn-danger">Eliminar</button>
-                    </form>
+                    <% } %>" disabled>
+                    Estado: <%=work.status%>
+                </button>
+                <% if(work.author.id._id.equals(currentUser._id)) { %>
+                    <a href="/works/<%=work.id%>/edit" class="btn btn-sm btn-info" style="width: 50%">Editar</a>
                 <% } %>
             </div>
         </div>
@@ -41,28 +36,28 @@
             <div class="col-xs-12 container" id="show-authors" style="display: none">
                 <h3>Autores</h3>
                 <div>
-                    <img src="<%=currentUser.image%>" class="img-circle">
+                    <img src="<%=work.author.id.image%>" class="img-circle">
                     <i class="glyphicon glyphicon-small glyphicon-chevron-right"></i>
-                    <a><h4><%=work.author.name%></h4></a>
+                    <a href="/profiles/<%=work.author.id._id%>"><h4><%=work.author.name%></h4></a>
+                    <% work.collabs.forEach(function(collab){ %>
+                        <div style="margin-top: 10px">
+                            <img src="<%=collab.id.image%>" class="img-circle">
+                            <i class="glyphicon glyphicon-small glyphicon-chevron-right"></i>
+                            <a href="/profiles/<%=collab.id._id%>"><h4><%=collab.name%></h4></a>
+                        </div>
+                    <% }) %>
                 </div>
             </div>
             <div class="col-xs-12 container" id="show-images" style="display: none">
                 <h3>Imágenes</h3>
-                <div class="col-xs-6 col-md-4">
-                    <a href="https://3dr.com/wp-content/uploads/2015/01/solo-drone-spin-transparent-500px.png">
-                        <img src="https://3dr.com/wp-content/uploads/2015/01/solo-drone-spin-transparent-500px.png" class="thumbnail img-responsive">
-                    </a>
-                </div>
-                <div class="col-xs-6 col-md-4">
-                    <a href="https://3dr.com/wp-content/uploads/2015/01/solo-drone-spin-transparent-500px.png">
-                        <img src="https://3dr.com/wp-content/uploads/2015/01/solo-drone-spin-transparent-500px.png" class="thumbnail img-responsive">
-                    </a>
-                </div>
-                <div class="col-xs-6 col-md-4">
-                    <a href="https://3dr.com/wp-content/uploads/2015/01/solo-drone-spin-transparent-500px.png">
-                        <img src="https://3dr.com/wp-content/uploads/2015/01/solo-drone-spin-transparent-500px.png" class="thumbnail img-responsive">
-                    </a>
-                </div>
+                <% if(work.images){ %>
+                    <% work.images.forEach(function(image){ %>
+                    <div class="col-xs-6 col-md-4">
+                        <a href="<%=image%>">
+                            <img src="<%=image%>" class="thumbnail img-responsive">
+                        </a>
+                    </div>
+                <% })} %>
             </div>
             <div class="col-xs-12 container" id="show-chat" style="display: none">
                 <h3>Discusión</h3>

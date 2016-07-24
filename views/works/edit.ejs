@@ -2,7 +2,10 @@
 
     <div class="banner text-center">
         <div class="container banner-content">
-            <h1><%=work.name%></h1>
+            <form action="/works/<%=work._id%>?_method=PUT" method="POST">
+                <input type="text" class="form-control" name="work[name]" value="<%=work.name%>">
+                <button class="btn btn-md btn-success">Guardar</button>
+            </form>
         </div>
     </div>
 
@@ -10,78 +13,77 @@
         <div class="col-xs-12 col-md-3" id="work-author">
             <div class="list-group">
                 <button id="description-button" class="list-group-item">Descripción</button>
-                <button id="chat-button" class="list-group-item">Discusión</button>
                 <button id="images-button" class="list-group-item">Imágenes</button>
                 <button id="authors-button" class="list-group-item">Autores</button>
-                
-            </div>
-            <div class="row container">
-                <a href="/works/<%=work.id%>/edit" class="btn btn-sm btn-info">Editar</a>
-                <% if(work.author.id.equals(currentUser._id)){ %>
-                    <form action="/works/<%=work._id%>?_method=DELETE" method="POST">
-                        <button class="btn btn-sm btn-danger">Eliminar</button>
-                    </form>
-                <% } %>
+                <button class="btn btn-md dropdown-toggle
+                <%  if (work.status === "En Curso"){ %>
+                        btn-warning
+                    <% } else if(work.status === "Completado"){ %>
+                        btn-success
+                    <% } else if(work.status === "Abandonado"){ %> 
+                        btn-danger
+                    <% } %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%; text-align: left">
+                    Estado: <%=work.status%>
+                </button>
+                <ul class="list-group-item dropdown-menu" style="display: none">
+                    <li id="on-status"><a><button class="btn btn-warning"></button> En Curso</a></li>
+                    <li id="done-status"><a><button class="btn btn-success"></button> Completado</a></li>
+                    <li id="off-status"><a><button class="btn btn-danger"></button> Abandonado</a></li>
+                </ul>
+                <form id="on-form" action="/works/<%=work._id%>?_method=PUT" method="POST" style="display: none">
+                    <input type="text" name="work[status]" value="En Curso">
+                </form>
+                <form id="done-form" action="/works/<%=work._id%>?_method=PUT" method="POST" style="display: none">
+                    <input type="text" name="work[status]" value="Completado">
+                </form>
+                <form id="off-form" action="/works/<%=work._id%>?_method=PUT" method="POST" style="display: none">
+                    <input type="text" name="work[status]" value="Abandonado">
+                </form>
+                <form action="/works/<%=work._id%>?_method=DELETE" method="POST">
+                    <button class="btn btn-sm btn-danger" style="width: 50%">Eliminar</button>
+                </form>
+                <form action="/works/<%=work._id%>" method="GET">
+                    <button class="btn btn-sm btn-warning" style="width: 50%; float: left">Salir</button>
+                </form>
             </div>
         </div>
         <div class="col-xs-12 col-md-9">
             <div class="col-xs-12" id="show-description">
                 <h2>Descripción</h2>
-                <h5><%=work.description%></h5>
+                <form action="/works/<%=work._id%>?_method=PUT" method="POST">
+                <textarea class="form-control" rows="10" name="work[description]"><%=work.description%></textarea>
+                    <button class="btn btn-md btn-success">Guardar</button>
+                </form>
             </div>
             <div class="col-xs-12 container" id="show-authors" style="display: none">
                 <h3>Autores</h3>
                 <div>
-                    <img src="<%=currentUser.image%>" class="img-circle">
+                    <img src="<%=work.author.id.image%>" class="img-circle">
                     <i class="glyphicon glyphicon-small glyphicon-chevron-right"></i>
-                    <a><h4><%=work.author.name%></h4></a>
+                    <a href="/profiles/<%=work.author.id._id%>"><h4><%=work.author.name%></h4></a>
+                    <h4>Buscar Personas</h4>
+                    <input class="form-control" type="text" id="author-search" placeholder="Escribe el nombre de la persona" style="display:inline">
+                    <button class="btn btn-md btn-success" style="display:inline" id="author-search-button">Buscar</button>
+                    <div id="author-results"></div>
+                    <input style="display: none" id="workid" value="<%=work._id%>">
                 </div>
             </div>
             <div class="col-xs-12 container" id="show-images" style="display: none">
                 <h3>Imágenes</h3>
-                <div class="col-xs-6 col-md-4">
-                    <a href="https://3dr.com/wp-content/uploads/2015/01/solo-drone-spin-transparent-500px.png">
-                        <img src="https://3dr.com/wp-content/uploads/2015/01/solo-drone-spin-transparent-500px.png" class="thumbnail img-responsive">
-                    </a>
-                </div>
-                <div class="col-xs-6 col-md-4">
-                    <a href="https://3dr.com/wp-content/uploads/2015/01/solo-drone-spin-transparent-500px.png">
-                        <img src="https://3dr.com/wp-content/uploads/2015/01/solo-drone-spin-transparent-500px.png" class="thumbnail img-responsive">
-                    </a>
-                </div>
-                <div class="col-xs-6 col-md-4">
-                    <a href="https://3dr.com/wp-content/uploads/2015/01/solo-drone-spin-transparent-500px.png">
-                        <img src="https://3dr.com/wp-content/uploads/2015/01/solo-drone-spin-transparent-500px.png" class="thumbnail img-responsive">
-                    </a>
-                </div>
-            </div>
-            <div class="col-xs-12 container" id="show-chat" style="display: none">
-                <h3>Discusión</h3>
-                <% work.messages.forEach(function(message){ %>
-                    <% if(message.author.id.equals(currentUser._id)) { %>
-                        <div class="row">
-                            <div class="text-right" id="own-message">
-                                <strong>Tú</strong>
-                                <p class="bubble"><%= message.text %></p>
-                                <form action="/works/<%=work._id%>/messages/<%=message._id%>?_method=DELETE" method="POST">
-                                    <button class="btn btn-xs btn-danger">Delete</button>
-                                </form>
-                            </div>
-                        </div>
-                    <% } else { %>
-                        <div class="row">
-                            <p class="bubble"><%= message.text %></p>
-                            <strong><%= message.author.name %></strong>
-                        </div>
-                    <% } %>
-                <% }) %>
-                <form action="/works/<%=work.id%>/messages" method="POST">
-                    <textarea class="form-control" rows="3" name="message[text]"></textarea>
-                    <button class="btn btn-lg btn-success">Enviar</button>
+                <% if(work.images){work.images.forEach(function(image){ %>
+                    <div class="col-xs-6 col-md-4">
+                        <a href="<%=image%>">
+                            <img src="<%=image%>" class="thumbnail img-responsive">
+                        </a>
+                    </div>
+                <% })} %>
+                <form action="/works/<%=work._id%>?_method=PUT" method="POST">
+                    <input class="form-control" type="text" name="workimage" placeholder="URL de la imagen">
+                    <br><button class="btn btn-md btn-success">Añadir</button>
                 </form>
             </div>
         </div>
     </div>
-
-    <script src="../javascript/works-show.js"></script>
+    <script src="../../javascript/works-edit.js"></script>
+    
 <% include ../partials/footer %>

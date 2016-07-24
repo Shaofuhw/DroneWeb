@@ -1,0 +1,48 @@
+<% include ../partials/header %>
+
+    <form action="/profiles/<%=user._id%>?_method=PUT" method="POST" id="edit-profile">
+        <div class="container" id="profile">
+            <div class="col-xs-12 col-md-3 text-center">
+                <img id="userimage" class="thumbnail" src="<%=user.image%>">
+                <div id="hidden-profile">
+                    <div id="hidden-profile-url">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="userurl" name="user[image]" placeholder="URL de la imagen">
+                        </div>
+                    </div>
+                    <a class="btn btn-primary" href="#" id="hidden-toggle">Cambiar Imagen</a>
+                    <a class="btn btn-md btn-success" style="margin-top: 20px" id="edit-save">Guardar Cambios</a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-9 thumbnail" id="profile-text">
+                <div class="col-xs-5">
+                    <p>Nombre:</p>
+                    <p>Apellidos:</p>
+                    <p>Correo Electrónico:</p>
+                </div>
+                <div class="col-xs-6">
+                    <input class="form-control" name="user[name]" value="<%=user.name%>"></input>
+                    <input class="form-control" name="user[lastname]" value="<%=user.lastname%>"></input>
+                    <input class="form-control" name="user[username]" value="<%=user.username%>"></input>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        $("#hidden-toggle").click(function(){
+            $("#hidden-toggle").fadeOut(300, function(){
+                $("#hidden-profile-url").show("fade");
+            });
+        });
+        
+        $("#edit-save").click(function(){
+            if($("#userurl").val() === ""){
+                var actualImage = $('#userimage').attr('src');
+                $("#userurl").val(actualImage);
+            }
+            $("#edit-profile").submit();
+        });
+    </script>
+    
+<% include ../partials/footer %>

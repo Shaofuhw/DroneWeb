@@ -16,7 +16,14 @@ var workSchema = new mongoose.Schema({
             ref: "User"
         },
         name: String
-    }
+    },
+    collabs: [{
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        name: String
+    }]
 });
 
 module.exports = mongoose.model("Work", workSchema);

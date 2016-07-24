@@ -1,0 +1,45 @@
+<% include ../partials/header %>
+
+    <div class="container" id="profile">
+        <div class="col-xs-12 col-md-3 text-center">
+            <img class="thumbnail"src="<%=user.image%>">
+            <!--<div id="hidden-profile">-->
+            <!--    <div id="hidden-profile-url">-->
+            <!--        <form action="/profiles/<%=currentUser._id%>?_method=PUT" method="POST">-->
+            <!--            <div class="form-group">-->
+            <!--                <input type="text" class="form-control" name="user[image]" placeholder="URL de la imagen" required>-->
+            <!--            </div>-->
+            <!--            <button type="submit" class="btn btn-md btn-primary">Subir</button>-->
+            <!--        </form>-->
+            <!--    </div>-->
+            <!--    <a class="btn btn-primary" href="#" id="hidden-toggle">Cambiar Imagen</a>-->
+            <!--</div>-->
+            <a class="btn btn-primary" href="/profiles/<%=currentUser._id%>/edit">Editar Perfil</a>
+        </div>
+        <div class="col-xs-12 col-md-9 thumbnail" id="profile-text">
+            <div class="col-xs-5">
+                <p>Nombre:</p>
+                <p>Apellidos:</p>
+                <p>Correo Electrónico:</p>
+                <p>Trabajos en los que participa:</p>
+            </div>
+            <div class="col-xs-6">
+                <p><%=user.name%></p>
+                <p><%=user.lastname%></p>
+                <p><%=user.username%></p>
+                <% user.works.forEach(function(work){ %>
+                    <h4><a href="/works/<%=work.id%>"><%=work.name%></a></h4>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("#hidden-toggle").click(function(){
+            $("#hidden-toggle").fadeOut(300, function(){
+                $("#hidden-profile-url").show("fade");
+            });
+        });
+    </script>
+    
+<% include ../partials/footer %>
