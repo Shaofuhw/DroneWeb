@@ -128,14 +128,39 @@ app.post("/works", isLoggedIn, function(req, res){
     });
 });
 
-//TODO - REMOVE USER LIST OF WORKS
 app.delete("/works/:id", checkWorkOwner, function(req, res){
     Work.findById(req.params.id, function(err, foundWork){
         if(err){
             res.redirect("back");
         } else {
             foundWork.remove(function(err){
-                
+                if(err){
+                    console.log(err);
+                    res.redirect("back");
+                } else {
+                    User.update(
+                        {_id: foundWork.author},
+                        {$pull: {works: foundWork._id}},
+                        function(err){
+                            if(err){
+                                console.log(err);
+                            } else {
+                                User.update(
+                                    {_id: {$in: foundWork.collabs}},
+                                    {$pull: {works: foundWork._id}},
+                                    function(err, affected){
+                                        if(err){
+                                            console.log(err);
+                                        } else {
+                                            console.log(affected);
+                                        }
+                                    }
+                                );
+                            }
+                        }
+                    );
+                    res.redirect("/works");
+                }
             });
         }
     });
@@ -325,7 +350,7 @@ function checkWorkOwner(req, res, next){
             if(err){
                 res.redirect("back");
             } else {
-                if(foundWork.author.id.equals(req.user._id)){
+                if(foundWork.author.equals(req.user._id)){
                     next();
                 } else {
                     res.redirect("back");

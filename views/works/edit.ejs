@@ -60,12 +60,12 @@
                 <div>
                     <img src="<%=work.author.image%>" class="img-circle">
                     <i class="glyphicon glyphicon-small glyphicon-chevron-right"></i>
-                    <a href="/profiles/<%=work.author._id%>"><h4><%=work.author.name%></h4></a>
+                    <a href="/profiles/<%=work.author._id%>"><h4><%=work.author.name%> <%=work.author.lastname%></h4></a>
                     <% work.collabs.forEach(function(collab){ %>
                         <div style="margin-top: 10px">
                             <img src="<%=collab.image%>" class="img-circle">
                             <i class="glyphicon glyphicon-small glyphicon-chevron-right"></i>
-                            <a href="/profiles/<%=collab._id%>"><h4><%=collab.name%></h4></a>
+                            <a href="/profiles/<%=collab._id%>"><h4><%=collab.name%> <%=collab.lastname%></h4></a>
                         </div>
                     <% }) %>
                     <h4>Buscar Personas</h4>
