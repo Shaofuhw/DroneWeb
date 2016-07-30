@@ -345,3 +345,8 @@ li .img-responsive{
 #author-results {
     margin-top: 0px;
 }
+
+.row .alert {
+    margin: 0 auto;
+    width: 50%;
+}

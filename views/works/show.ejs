@@ -8,6 +8,15 @@
 
     <div class="container" id="work-show">
         <div class="col-xs-12 col-md-3" id="work-author">
+            <% if(error && error.length > 0){ %>
+                <div class="alert alert-danger" role="alert" style="width:100%; margin-top: 12px">
+                    <%- error %>
+                </div>
+            <% } else if(success && success.length > 0){ %>
+                <div class="alert alert-success" role="alert" style="width:100%; margin-top: 12px">
+                    <%- success %>
+                </div>
+            <% } %>
             <div class="list-group">
                 <button id="description-button" class="list-group-item">Descripción</button>
                 <button id="chat-button" class="list-group-item">Discusión</button>

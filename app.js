@@ -1,13 +1,12 @@
 //=============Setup
 var express     = require('express'),
+    app         = express(),
     mongoose    = require('mongoose'),
     bodyParser  = require('body-parser'),
     passport    = require('passport'),
-    flash       = require('connect-flash'),
     localStrategy   = require('passport-local'),
     methodOverride  = require('method-override'),
-    
-    app         = express(),
+    flash       = require('connect-flash'),
     
     User    = require('./models/user'),
 
@@ -16,7 +15,8 @@ var express     = require('express'),
     workRoutes      = require('./routes/works'),
     messageRoutes   = require('./routes/messages');
 
-mongoose.connect(process.env.DATABASEURL);
+mongoose.connect("mongodb://localhost/drone_web");
+//mongoose.connect(process.env.DATABASEURL);
     
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -40,6 +40,8 @@ passport.deserializeUser(User.deserializeUser());
 app.use(function(req, res, next){
     res.locals.currentUser  = req.user;
     res.locals.url          = req.url;
+    res.locals.error        = req.flash("error");
+    res.locals.success      = req.flash("success");
     next();
 });
 

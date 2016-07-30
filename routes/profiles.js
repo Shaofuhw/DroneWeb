@@ -30,12 +30,14 @@ router.put("/profiles/:id", middleware.checkProfileOwner, function(req, res){
     User.findByIdAndUpdate(req.params.id, req.body.user, function(err, updatedUser){
         if(err){
             console.log(err);
+            req.flash("error", "Ha habido un problema");
             res.redirect("back");
         } else {
             if(!updatedUser.image) {
                 updatedUser.image = "http://en.upside-art.com/images/empty_profile.png?w=150&h=150";
                 updatedUser.save();
             }
+            req.flash("success", "¡Perfil editado!");
             res.redirect("/profiles/"+ updatedUser._id);
         }
     });

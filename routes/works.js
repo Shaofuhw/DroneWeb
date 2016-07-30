@@ -10,6 +10,7 @@ router.get("/works", middleware.isLoggedIn, function(req, res){
     Work.find({}, function(err, allWorks){
         if(err){
             console.log(err);
+            res.redirect("back");
         } else {
             res.render("works/index", {works: allWorks});
         }
@@ -35,6 +36,8 @@ router.post("/works", middleware.isLoggedIn, function(req, res){
     Work.create(newWork, function(err, createdWork){
         if(err){
             console.log(err);
+            req.flash("error", "Ha habido un problema");
+            res.redirect("/works");
         } else {
             User.findById(req.user._id, function(err, foundUser){
                 if(err){
@@ -43,6 +46,7 @@ router.post("/works", middleware.isLoggedIn, function(req, res){
                 } else {
                     foundUser.works.push(createdWork);
                     foundUser.save();
+                    req.flash("success", "¡Nuevo trabajo creado!");
                     res.redirect("/works");
                 }
             });
@@ -53,11 +57,14 @@ router.post("/works", middleware.isLoggedIn, function(req, res){
 router.delete("/works/:id", middleware.checkWorkOwner, function(req, res){
     Work.findById(req.params.id, function(err, foundWork){
         if(err){
-            res.redirect("back");
+            console.log(err);
+            req.flash("error", "Ha habido un problema");
+            res.redirect("/works");
         } else {
             foundWork.remove(function(err){
                 if(err){
                     console.log(err);
+                    req.flash("error", "No se puede borrar este trabajo");
                     res.redirect("back");
                 } else {
                     User.update(
@@ -91,6 +98,7 @@ router.delete("/works/:id", middleware.checkWorkOwner, function(req, res){
                             });
                         }
                     });
+                    req.flash("success", "¡Trabajo eliminado!");
                     res.redirect("/works");
                 }
             });
@@ -102,11 +110,13 @@ router.put("/works/:id", middleware.checkWorkOwner, function(req, res){
     Work.findByIdAndUpdate(req.params.id, req.body.work, function(err, updatedWork){
         if(err){
             console.log(err);
+            req.flash("error", "Ha habido un problema");
             res.redirect("/works");
         } else {
             if(req.body.workimage){
                 updatedWork.images.push(req.body.workimage);
                 updatedWork.save();
+                req.flash("success", "¡Imagen añadida!<br>");
             }
             if(req.body.collabs){
                 updatedWork.collabs.push(req.body.collabs);
@@ -118,9 +128,11 @@ router.put("/works/:id", middleware.checkWorkOwner, function(req, res){
                     } else {
                         foundUser.works.push(updatedWork);
                         foundUser.save();
+                        req.flash("success", "¡Usuario añadido!<br>");
                     }
                 });
             }
+            req.flash("success", "¡Trabajo editado!");
             res.redirect("/works/"+ updatedWork._id + "/edit");
         }
     });
@@ -130,7 +142,8 @@ router.get("/works/:id", middleware.isLoggedIn, function(req, res){
     Work.findById(req.params.id).populate("messages author collabs").exec(function(err, foundWork){
         if(err){
             console.log(err);
-            res.redirect("back");
+            req.flash("error", "Ha habido un problema");
+            res.redirect("/works");
         } else {
             res.render("works/show", {work: foundWork});
         }

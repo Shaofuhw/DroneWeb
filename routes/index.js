@@ -1,7 +1,7 @@
-var express = require('express'),
-    passport= require('passport'),
-    router  = express.Router(),
-    User    = require('../models/user'),
+var express     = require('express'),
+    passport    = require('passport'),
+    router      = express.Router(),
+    User        = require('../models/user'),
     middleware  = require('../middleware');
 
 //Home
@@ -16,7 +16,9 @@ router.get("/login", function(req, res){
 
 router.post("/login", passport.authenticate("local", {
     successRedirect: "/works",
-    failureRedirect: "/login"
+    failureRedirect: "/login",
+    failureFlash: "Datos Incorrectos",
+    successFlash: "¡Bienvenido!"
     }), function(req, res){
 });
 
@@ -35,6 +37,7 @@ router.post("/register", middleware.confirmPassword, function(req, res){
                 user.lastname   = req.body.lastname;
                 user.image      = "http://en.upside-art.com/images/empty_profile.png?w=150&h=150";
                 user.save();
+                req.flash("success", "¡Bienvenido!");
                 res.redirect("/works");
             });
         }

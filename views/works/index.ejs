@@ -1,7 +1,26 @@
 <% include ../partials/header %>
 
     <div class="container" id="worklist">
-        <h2>Trabajos</h2>
+        <div class="row">
+            <div class="col-xs-6">
+                <h2>Trabajos</h2>
+            </div>
+            <div class="col-xs-6">
+                <% if(error && error.length > 0){ %>
+                    <div class="alert alert-danger" role="alert" style="width:100%; margin-top: 12px">
+                        <%= error %>
+                    </div>
+                <% } else if(success && success.length > 0){ %>
+                    <div class="alert alert-success" role="alert" style="width:100%; margin-top: 12px">
+                        <%= success %>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+        
+        <div class="row">
+            
+        </div>
         <hr>
         <div class="row" >
             <div class="col-xs-12 col-md-3">
