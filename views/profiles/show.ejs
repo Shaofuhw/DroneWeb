@@ -3,7 +3,9 @@
     <div class="container" id="profile">
         <div class="col-xs-12 col-md-3 text-center">
             <img class="thumbnail"src="<%=user.image%>">
-            <a class="btn btn-primary" href="/profiles/<%=currentUser._id%>/edit">Editar Perfil</a>
+            <% if(user._id.equals(currentUser._id)) { %>
+                <a class="btn btn-primary" href="/profiles/<%=user._id%>/edit">Editar Perfil</a>
+            <% } %>
             <% if(error && error.length > 0){ %>
                 <div class="alert alert-danger" role="alert" style="width:100%; margin-top: 12px">
                     <%- error %>
