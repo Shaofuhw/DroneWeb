@@ -53,7 +53,8 @@ router.post("/register", middleware.confirmPassword, function(req, res){
                 to: user.username, // list of receivers 
                 subject: 'DroneUNEX. Confirmación de correo', // Subject line 
                 html: '¡Bienvenido!<br> Por favor haz click en el siguiente enlace para confirmar tu cuenta:<br><br>'
-                    + 'https://webdevcourse-mrfu.c9users.io/validate/' + user._id
+                    //+ 'https://webdevcourse-mrfu.c9users.io/validate/' + user._id
+                    + 'https://droneweb.herokuapp.com/validate/' + user._id
             };
             transporter.sendMail(mailOptions, function(error, info){
                 if(error){
