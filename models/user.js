@@ -10,7 +10,8 @@ var userSchema  = new mongoose.Schema({
         works: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Work"
-            }]
+            }],
+        validated:  Boolean
 });
 
 userSchema.plugin(passportLocalMongoose);
