@@ -55,7 +55,6 @@ $(document).ready(function () {
                 $('#author-results').html(data);
             });
         }
-        
     });
     
     /*$('#author-search').on('keyup', function(e){

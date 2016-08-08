@@ -23,6 +23,6 @@ $(document).ready(function () {
     });
     
     $(".work-box").click(function(){
-        window.location = $(this).find("#edit-href").attr("href");
+        window.location = $(this).find("#show-work").attr("href");
     });
 });

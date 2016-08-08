@@ -23,7 +23,7 @@
         </div>
         <hr>
         <div class="row" >
-            <div class="col-xs-12 col-md-3">
+            <div class="col-xs-12 col-sm-3">
                 <div class="list-group">
                     <button id="all-button" class="list-group-item">Todos</button>
                     <button id="on-button" class="list-group-item">En Curso</button>
@@ -34,7 +34,7 @@
                     <a class="btn btn-lg btn-success" style="width: 100%; margin-bottom: 30px" href="/works/new">Nuevo Trabajo</a>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-9">
+            <div class="col-xs-12 col-sm-9">
                 <% works.forEach(function(work){ %>
                     <% if(work.status === "En Curso") { %>
                         <div class="btn btn-grey on work-box" id="work-box">
@@ -57,7 +57,7 @@
                                         <% } %>
                                     "></a>
                                     <%=work.status%>
-                                    <a href="/works/<%=work.id%>" id="edit-href" style="display:none">Editar</a>
+                                    <a href="/works/<%=work.id%>" id="show-work" style="display:none"></a>
                                 </div>
                             </div>
                         </div>

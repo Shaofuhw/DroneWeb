@@ -189,7 +189,7 @@ h5 {
 }
 
 .btn-grey{
-    background-color: #e0e0e0;
+    background-color: #e6e6e6;
     white-space: normal;
 }
 
@@ -349,4 +349,24 @@ li .img-responsive{
 .row .alert {
     margin: 0 auto;
     width: 50%;
+}
+
+.user-box {
+    margin-top: 20px;
+    max-height: 100%;
+    width: 100%;
+    text-align: left;
+}
+
+.user-box img {
+    max-height: 150px;
+    max-width: 100%;
+}
+
+#profile-results {
+    margin-top: 20px;
+}
+
+#profile-results img{
+    max-height: 80px;
 }

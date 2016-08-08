@@ -12,7 +12,7 @@ router.get("/works", middleware.isLoggedIn, function(req, res){
             console.log(err);
             res.redirect("back");
         } else {
-            res.render("works/index", {works: allWorks});
+            res.render("works/index", {works: allWorks.reverse()});
         }
     });
 });
@@ -145,6 +145,8 @@ router.get("/works/:id", middleware.isLoggedIn, function(req, res){
             req.flash("error", "Ha habido un problema");
             res.redirect("/works");
         } else {
+            foundWork.messages = foundWork.messages.reverse();
+            foundWork.save();
             res.render("works/show", {work: foundWork});
         }
     });

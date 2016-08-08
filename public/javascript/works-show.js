@@ -38,5 +38,11 @@ $(document).ready(function () {
         $("#show-chat").fadeIn(200);
     });
     
+    $('#chatinput').on('keyup', function(e){
+        if(e.keyCode === 13) {
+            $("#chatinputform").submit();
+        }
+    });
+    
 });
 

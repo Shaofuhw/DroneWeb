@@ -1,0 +1,31 @@
+<% include ../partials/header %>
+    
+    <div class="container">
+        <div class="col-xs-12 col-sm-4 col-md-3">
+            <h3>Buscar</h3>
+            <input class="form-control" id="profile-search" placeholder="Introduce el nombre">
+            <div id="profile-results"></div>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-9">
+            <%users.forEach(function(user){ %>
+                <% if(user.validated == true) { %>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="btn btn-grey user-box">
+                            <div class="col-xs-4" style="padding: 0px">
+                                <img src="<%=user.image%>" class="img-circle">
+                            </div>
+                            <div class="col-xs-8 text-center" style="padding: 0">
+                                <h3 style="margin-top: 15px; word-wrap: break-word;"><%=user.name%> <%=user.lastname%></h3>
+                                <hr style="width:100%">
+                                <h4 style="word-wrap: break-word;"><%=user.username%></h4>
+                                <a href="/profiles/<%=user._id%>" id="show-profile" style="display:none"></a>
+                            </div>
+                        </div>
+                    </div>  
+                <% } %>
+            <% }); %>
+        </div>
+    </div>
+    <script src="../javascript/profiles-index.js"></script>
+    
+<% include ../partials/footer %>
