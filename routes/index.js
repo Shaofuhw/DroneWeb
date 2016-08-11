@@ -44,7 +44,6 @@ router.post("/register", middleware.confirmPassword, function(req, res){
             res.redirect("/register");
         } else {
             user.name       = req.body.name;
-            user.lowername  = req.body.name.toLowerCase();
             user.lastname   = req.body.lastname;
             user.image      = "http://en.upside-art.com/images/empty_profile.png?w=150&h=150";
             user.validated  = false;

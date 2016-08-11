@@ -58,7 +58,7 @@ router.put("/profiles/:id", middleware.checkProfileOwner, function(req, res){
 
 router.get("/profilesearch", middleware.isLoggedIn, function(req, res){
     var name = req.query.search;
-    User.find({"lowername": name.toLowerCase()}, function(err, foundUsers){
+    User.find({name: new RegExp(name, "i")}, function(err, foundUsers){
         if(err){
             console.log(err);
             res.send("Hubo un problema");
@@ -66,8 +66,8 @@ router.get("/profilesearch", middleware.isLoggedIn, function(req, res){
             if(foundUsers.length == 0) {
                 res.send("Usuario no encontrado");
             } else {
+                var result = "";
                 if (req.query.workid){
-                    var result = "";
                     foundUsers.forEach(function(user){
                         var coincide = 0;
                         user.works.forEach(function(work){
@@ -85,7 +85,6 @@ router.get("/profilesearch", middleware.isLoggedIn, function(req, res){
                         }
                     });
                 } else {
-                    var result = "";
                     foundUsers.forEach(function(user){
                         if(user.validated){
                             var str = '<h4><img src='

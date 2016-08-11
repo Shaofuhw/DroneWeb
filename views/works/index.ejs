@@ -17,59 +17,31 @@
                 <% } %>
             </div>
         </div>
-        
-        <div class="row">
-            
-        </div>
         <hr>
         <div class="row" >
-            <div class="col-xs-12 col-sm-3">
+            <div class="col-xs-12 col-sm-3 text-center">
                 <div class="list-group">
                     <button id="all-button" class="list-group-item">Todos</button>
                     <button id="on-button" class="list-group-item">En Curso</button>
                     <button id="done-button" class="list-group-item">Completado</button>
                     <button id="off-button" class="list-group-item">Abandonado</button>
                 </div>
-                <div class="list-group">
-                    <a class="btn btn-lg btn-success" style="width: 100%; margin-bottom: 30px" href="/works/new">Nuevo Trabajo</a>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-9">
-                <% works.forEach(function(work){ %>
-                    <% if(work.status === "En Curso") { %>
-                        <div class="btn btn-grey on work-box" id="work-box">
-                    <% } else if (work.status === "Completado") { %> 
-                        <div class="btn btn-grey done work-box" id="work-box">
-                    <% } else if (work.status === "Abandonado") {%>
-                        <div class="btn btn-grey off work-box" id="work-box">
+                <div class="btn-group" role="group" style="margin-bottom: 20px">
+                    <button type="button" class="btn btn-default" id="previous-page"><</button>
+                    <% for(var i = 1; i < n+1; i++){ %>
+                        <% if(i == 1) { %>
+                            <button type="button" class="btn btn-default btn-page <%=i%> active" value="<%=i%>"><%=i%></button>
+                        <% } else if(i == n){ %>
+                            <button type="button" class="btn btn-default btn-page <%=i%> last" value="<%=i%>"><%=i%></button>
+                        <% } else { %>
+                            <button type="button" class="btn btn-default btn-page <%=i%>" value="<%=i%>"><%=i%></button>
+                        <% } %>
                     <% } %>
-                        <div class="col-xs-3" id="work-box-image">
-                            <img class="thumbnail" src="<%= work.thumbnail %>">
-                            <div id="thumbnail-text">
-                                <div class="col-xs-8" style="padding: 0px">
-                                    <a class="btn 
-                                        <% if (work.status === "En Curso"){ %>
-                                            btn-warning
-                                        <% } else if(work.status === "Completado"){ %>
-                                            btn-success
-                                        <% } else if(work.status === "Abandonado"){ %> 
-                                            btn-danger
-                                        <% } %>
-                                    "></a>
-                                    <%=work.status%>
-                                    <a href="/works/<%=work.id%>" id="show-work" style="display:none"></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-9">
-                            <h4><%=work.name%></h4>
-                            <hr>
-                            <h5><%-work.description.substring(0, 400)%> . . .</h5>
-                        </div>
-                    </div>
-                    <br><br>
-                    
-                <% }) %>
+                    <button type="button" class="btn btn-default" id="next-page">></button>
+                </div>
+                <a class="btn btn-lg btn-success" style="width: 100%; margin-bottom: 30px" href="/works/new">Nuevo Trabajo</a>
+            </div>
+            <div class="col-xs-12 col-sm-9" id="works-list">
             </div>
         </div>
     </div>

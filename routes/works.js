@@ -12,7 +12,64 @@ router.get("/works", middleware.isLoggedIn, function(req, res){
             console.log(err);
             res.redirect("back");
         } else {
-            res.render("works/index", {works: allWorks.reverse()});
+            var worksPerPage = 5;
+            var n = Math.ceil(allWorks.length/worksPerPage);
+            allWorks = allWorks.reverse();
+            res.render("works/index", {works: allWorks.slice(0, worksPerPage), n: n});
+        }
+    });
+});
+
+router.get("/worksearch", middleware.isLoggedIn, function(req, res){
+    Work.find({}, function(err, foundWorks){
+        if(err){
+            req.flash("Ha ocurrido un problema");
+            res.redirect("back");
+        } else {
+            foundWorks  = foundWorks.reverse();
+            var result  = "";
+            var n       = req.query.search;
+            var worksPerPage = 5;
+            var initial = (n - 1) * worksPerPage;
+            var final   = initial + worksPerPage;
+            foundWorks  = foundWorks.slice(initial, final);
+            foundWorks.forEach(function(work){
+                var str1 = '<div id="work-box" class="btn btn-grey work-box';
+                if (work.status         === "En Curso") {
+                    var str2 = ' on">';
+                } else if (work.status  === "Completado") {
+                    var str2 = ' done">';
+                } else if (work.status  === "Abandonado") {
+                    var str2 = ' off">';
+                }
+                result      = result.concat(str1.concat(str2));
+                var str3    =   '<div class="col-xs-3" id="work-box-image">'
+                                +   '<img class="thumbnail" src="' + work.thumbnail + '">'
+                                +   '<div id="thumbnail-text">'
+                                +       '<div class="col-xs-8" style="padding: 0px">'
+                                +           '<a class="btn';
+                if (work.status         === "En Curso") {
+                    var str4    = ' btn-warning"></a>'; 
+                } else if (work.status  === "Completado") {
+                    var str4    = ' btn-success"></a>';
+                } else if (work.status  === "Abandonado") {
+                    var str4    = ' btn-danger"></a>';
+                }
+                result      = result.concat(str3.concat(str4));
+                var str5    =               work.status
+                                +           '<a href="/works/' + work._id + '" id="show-work" style="display:none"></a>'
+                                +           '</div>'
+                                +       '</div>'
+                                +   '</div>'
+                                +   '<div class="col-xs-9">'
+                                +       '<h4>' + work.name + '</h4>'
+                                +       '<hr>'
+                                +       '<h5>' + work.description.substring(0, 500) + '</h5>'
+                                +   '</div>'
+                                +'</div>';
+                result      = result.concat(str5);
+            });
+            res.send(result);
         }
     });
 });

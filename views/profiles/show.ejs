@@ -26,7 +26,7 @@
             <div class="col-xs-6">
                 <p><%=user.name%></p>
                 <p><%=user.lastname%></p>
-                <p><%=user.username%></p>
+                <p><a href="mailto:<%=user.username%>"><%=user.username%></a></p>
                 <% user.works.forEach(function(work){ %>
                     <h4><a href="/works/<%=work.id%>"><%=work.name%></a></h4>
                 <% }) %>
