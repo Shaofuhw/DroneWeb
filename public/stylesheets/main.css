@@ -371,3 +371,7 @@ li .img-responsive{
 #profile-results img{
     max-height: 80px;
 }
+
+#show-images button {
+    margin: 10px 0px 0px 0px;
+}

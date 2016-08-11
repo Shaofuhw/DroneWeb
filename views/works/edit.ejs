@@ -85,7 +85,12 @@
                 </div>
             </div>
             <div class="col-xs-12 container" id="show-images" style="display: none">
-                <h3>Imágenes</h3>
+                <h3>Cambiar imagen de portada</h3>
+                <form action="/works/<%=work._id%>?_method=PUT" method="POST">
+                    <input class="form-control" type="text" name="work[thumbnail]" value="<%=work.thumbnail%>">
+                    <button class="btn btn-md btn-success">Modificar</button>
+                </form>
+                <h3>Añadir imágenes</h3>
                 <% if(work.images){work.images.forEach(function(image){ %>
                     <div class="col-xs-6 col-md-4">
                         <a href="<%=image%>">
@@ -95,8 +100,9 @@
                 <% })} %>
                 <form action="/works/<%=work._id%>?_method=PUT" method="POST">
                     <input class="form-control" type="text" name="workimage" placeholder="URL de la imagen">
-                    <br><button class="btn btn-md btn-success">Añadir</button>
+                    <button class="btn btn-md btn-success">Añadir</button>
                 </form>
+                
             </div>
         </div>
     </div>
