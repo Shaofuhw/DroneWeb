@@ -1,15 +1,15 @@
 <% include ../partials/header %>
     
     <div class="container">
-        <div class="col-xs-12 col-sm-4 col-md-3">
+        <div class="col-xs-12 col-lg-3" id="profile-div">
             <h3>Buscar</h3>
             <input class="form-control" id="profile-search" placeholder="Introduce el nombre">
             <div id="profile-results"></div>
         </div>
-        <div class="col-xs-12 col-sm-8 col-md-9">
+        <div class="col-xs-12 col-lg-9">
             <%users.forEach(function(user){ %>
                 <% if(user.validated == true) { %>
-                    <div class="col-xs-12 col-md-6">
+                    <div class="col-xs-12 col-sm-6">
                         <div class="btn btn-grey user-box">
                             <div class="col-xs-4" style="padding: 0px">
                                 <img src="<%=user.image%>" class="img-circle">

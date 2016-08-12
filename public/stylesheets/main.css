@@ -406,3 +406,8 @@ li .img-responsive{
     width: 1170px;
   }
 }
+
+#profile-div {
+    padding: 0px 30px 0 30px;
+    max-width: 600px;
+}
