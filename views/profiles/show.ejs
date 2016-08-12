@@ -1,7 +1,7 @@
 <% include ../partials/header %>
 
     <div class="container" id="profile">
-        <div class="col-xs-12 col-sm-3 text-center">
+        <div class="col-xs-12 col-sm-3 text-center" id="profile-image">
             <img class="thumbnail"src="<%=user.image%>">
             <% if(user._id.equals(currentUser._id)) { %>
                 <a class="btn btn-primary" href="/profiles/<%=user._id%>/edit">Editar Perfil</a>

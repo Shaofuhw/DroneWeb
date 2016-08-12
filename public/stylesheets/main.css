@@ -219,10 +219,6 @@ h5 {
     height: 30px;
 }
 
-.dropdown-menu a {
-    width: 100%;
-}
-
 #work-author{
     padding-top: 5px;
 }
@@ -231,6 +227,10 @@ h5 {
     margin-top: 10px;
     margin-bottom: 15px;
     min-width: 100%;
+}
+
+#show-authors {
+    margin-bottom: 20px;
 }
 
 #show-authors a h4, #work-author form{
@@ -302,16 +302,18 @@ li .img-responsive{
 }
 
 #profile {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 #profile img{
     width: 100%;
+    max-width: 300px;
     height: 100%;
-    margin-bottom: 0px;
+    margin: 0px auto 10px;
 }
 
 #profile-text {
+    margin-top: 20px;
     padding-top: 20px;
     padding-left: 40px;
     padding-bottom: 15px;
@@ -333,6 +335,10 @@ li .img-responsive{
 
 #profile-text input {
     margin-bottom: 14px;
+}
+
+#profile-image {
+    margin-top: 20px;
 }
 
 #show-authors h4 {
@@ -373,5 +379,11 @@ li .img-responsive{
 }
 
 #show-images button {
-    margin: 10px 0px 0px 0px;
+    margin: 0px;
+}
+
+#header-profile {
+    margin: 0px auto;
+    height: 100%;
+    max-width: 250px;
 }
