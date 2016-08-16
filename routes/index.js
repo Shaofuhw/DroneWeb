@@ -45,7 +45,7 @@ router.post("/register", middleware.confirmPassword, function(req, res){
         } else {
             user.name       = req.body.name;
             user.lastname   = req.body.lastname;
-            user.image      = "http://en.upside-art.com/images/empty_profile.png?w=150&h=150";
+            user.image      = "https://i.imgur.com/VeE8hZo.png";
             user.validated  = false;
             user.save();
             var mailOptions = {
