@@ -20,13 +20,13 @@ $(document).ready(function () {
     
     $("#nav-info").click(function() {
         $('html, body').animate({
-            scrollTop: $("#home-description").offset().top
+            scrollTop: $("#home-description").offset().top - 70
         }, 1000);
     });
     
     $("#nav-contact").click(function() {
         $('html, body').animate({
-            scrollTop: $("#home-contact").offset().top
+            scrollTop: $("#home-contact").offset().top - 70
         }, 1000);
     });
     

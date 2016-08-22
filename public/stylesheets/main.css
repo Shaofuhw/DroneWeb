@@ -40,7 +40,7 @@ body {
 
 hr{
     height: 1px;
-    width: 450px;
+    width: 90%;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 
@@ -55,30 +55,26 @@ hr{
     padding: 0 0 0 0;
     background-size: cover;
     background-position: center;
-    height: 950px;
 }
 
 #home-image-content {
-    padding-top: 150px;
+    padding-top: 200px;
     padding-bottom: 180px;
     color: white;
-    font-size: 2.5em;
+    font-size: 1.8em;
     text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
                  0px 8px 13px rgba(0,0,0,0.1),
                  0px 18px 23px rgba(0,0,0,0.1);
 }
 
 #home-image-content #title {
-    margin-top: 200px;
-    font-size: 2em;
+    font-size: 1.2em;
 }
 
 #home-image-content a {
-    width: 100%;
-    height: 50px;
-    padding-bottom: 50px;
+    width: 60%;
     border-radius: 10px;
-    font-size: 0.8em;
+    font-size: 0.5em;
 }
 
 #home-description {
@@ -91,6 +87,12 @@ hr{
     padding-bottom: 30px;
     font-size: 1.4em;
 }
+
+#hidden-login-box {
+    width: 50%;
+    margin: 0 auto;
+    font-size: 1em;
+  }
 
 .thumbnail {
     max-height: 100%;
@@ -136,12 +138,6 @@ hr{
 #form-button {
     margin: 25px auto;
     border-radius: 10px;
-}
-
-#hidden-login-box {
-    width: 30%;
-    margin: 0 auto;
-    font-size: 1em;
 }
 
 #hidden-login, #hidden-profile-url {
@@ -318,9 +314,6 @@ li .img-responsive{
 
 #profile-text {
     margin-top: 20px;
-    padding-top: 20px;
-    padding-left: 40px;
-    padding-bottom: 15px;
 }
 
 #profile-text p {
@@ -329,7 +322,7 @@ li .img-responsive{
     margin-bottom: 20px;
 }
 
-#profile-text .col-xs-5 {
+#profile-text .col-xs-4 {
     font-weight: bold;
 }
 
@@ -396,11 +389,32 @@ li .img-responsive{
   .container {
     width: 100%;
   }
+  #hidden-login-box {
+    width: 50%;
+    margin: 0 auto;
+    font-size: 1em;
+  }
 }
 
 @media (min-width: 992px) {
   .container {
     width: 100%;
+  }
+  hr {
+    width: 480px;  
+  }
+  #hidden-login-box {
+    width: 25%;
+    margin: 0 auto;
+    font-size: 1em;
+  }
+  #home-image-content {
+      font-size: 3em;
+  }
+  #profile-text {
+    padding-top: 20px;
+    padding-left: 30px;
+    padding-bottom: 15px;
   }
 }
 

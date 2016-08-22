@@ -42,10 +42,10 @@ router.get("/worksearch", function(req, res){
                     var str2 = ' off">';
                 }
                 result      = result.concat(str1.concat(str2));
-                var str3    =   '<div class="col-xs-3" id="work-box-image">'
+                var str3    =   '<div class="col-xs-4" id="work-box-image">'
                                 +   '<img class="thumbnail" src="' + work.thumbnail + '">'
                                 +   '<div id="thumbnail-text">'
-                                +       '<div class="col-xs-8" style="padding: 0px">'
+                                +       '<div class="col-xs-12" style="padding: 0px">'
                                 +           '<a class="btn';
                 if (work.status         === "En Curso") {
                     var str4    = ' btn-warning"></a>'; 
@@ -60,7 +60,7 @@ router.get("/worksearch", function(req, res){
                                 +           '</div>'
                                 +       '</div>'
                                 +   '</div>'
-                                +   '<div class="col-xs-9">'
+                                +   '<div class="col-xs-8">'
                                 +       '<h4>' + work.name + '</h4>'
                                 +       '<hr>'
                                 +       '<h5>' + work.description.substring(0, 500) + '</h5>'
