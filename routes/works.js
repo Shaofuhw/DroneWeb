@@ -6,21 +6,20 @@ var express = require('express'),
     middleware  = require('../middleware');
 
 //Works
-router.get("/works", middleware.isLoggedIn, function(req, res){
-    Work.find({}, function(err, allWorks){
+router.get("/works", function(req, res){
+    Work.find({}).limit(5).sort({"_id": -1}).exec(function(err, allWorks){
         if(err){
             console.log(err);
             res.redirect("back");
         } else {
             var worksPerPage = 5;
             var n = Math.ceil(allWorks.length/worksPerPage);
-            allWorks = allWorks.reverse();
-            res.render("works/index", {works: allWorks.slice(0, worksPerPage), n: n});
+            res.render("works/index", {works: allWorks, n: n});
         }
     });
 });
 
-router.get("/worksearch", middleware.isLoggedIn, function(req, res){
+router.get("/worksearch", function(req, res){
     Work.find({}, function(err, foundWorks){
         if(err){
             req.flash("Ha ocurrido un problema");
@@ -195,7 +194,7 @@ router.put("/works/:id", middleware.checkWorkOwner, function(req, res){
     });
 });
 
-router.get("/works/:id", middleware.isLoggedIn, function(req, res){
+router.get("/works/:id", function(req, res){
     Work.findById(req.params.id).populate("messages author collabs").exec(function(err, foundWork){
         if(err){
             console.log(err);

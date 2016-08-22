@@ -55,6 +55,7 @@ hr{
     padding: 0 0 0 0;
     background-size: cover;
     background-position: center;
+    height: 950px;
 }
 
 #home-image-content {
@@ -68,6 +69,7 @@ hr{
 }
 
 #home-image-content #title {
+    margin-top: 200px;
     font-size: 2em;
 }
 

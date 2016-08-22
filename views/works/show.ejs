@@ -32,8 +32,10 @@
                     <% } %>" disabled>
                     Estado: <%=work.status%>
                 </button>
-                <% if(work.author._id.equals(currentUser._id)) { %>
-                    <a href="/works/<%=work.id%>/edit" class="btn btn-sm btn-info" style="width: 50%">Editar</a>
+                <% if(currentUser){ %>
+                    <% if(work.author._id.equals(currentUser._id)) { %>
+                        <a href="/works/<%=work.id%>/edit" class="btn btn-sm btn-info" style="width: 50%">Editar</a>
+                    <% } %>
                 <% } %>
             </div>
         </div>
@@ -42,7 +44,7 @@
                 <h2>Descripción</h2>
                 <h5><%=work.description%></h5>
             </div>
-            <div class="col-xs-12 container" id="show-authors" style="display: none">
+            <div class="col-xs-12" id="show-authors" style="display: none">
                 <h3>Autores</h3>
                 <div>
                     <img src="<%=work.author.image%>" class="img-circle">
@@ -57,7 +59,7 @@
                     <% }) %>
                 </div>
             </div>
-            <div class="col-xs-12 container" id="show-images" style="display: none">
+            <div class="col-xs-12" id="show-images" style="display: none">
                 <h3>Imágenes</h3>
                 <% if(work.images){ %>
                     <% work.images.forEach(function(image){ %>
@@ -68,27 +70,31 @@
                     </div>
                 <% })} %>
             </div>
-            <div class="col-xs-12 container" id="show-chat" style="display: none">
+            <div class="col-xs-12" id="show-chat" style="display: none">
                 <h3>Discusión</h3>
-                <form action="/works/<%=work.id%>/messages" id="chatinputform" method="POST">
-                    <textarea class="form-control" id="chatinput" rows="3" name="message[text]"></textarea>
-                </form>
+                <% if(currentUser){ %>
+                    <form action="/works/<%=work.id%>/messages" id="chatinputform" method="POST">
+                        <textarea class="form-control" id="chatinput" rows="3" name="message[text]"></textarea>
+                    </form>
+                <% } %>
                 <% work.messages.forEach(function(message){ %>
-                    <% if(message.author.equals(currentUser._id)) { %>
-                        <div class="row">
-                            <div class="text-right" id="own-message">
-                                <strong>Tú</strong>
-                                <p class="bubble"><%= message.text %></p>
-                                <form action="/works/<%=work._id%>/messages/<%=message._id%>?_method=DELETE" method="POST">
-                                    <button class="btn btn-xs btn-danger">Delete</button>
-                                </form>
+                    <% if(currentUser){ %>
+                        <% if(message.author.equals(currentUser._id)) { %>
+                            <div class="row">
+                                <div class="text-right" id="own-message">
+                                    <strong>Tú</strong>
+                                    <p class="bubble"><%= message.text %></p>
+                                    <form action="/works/<%=work._id%>/messages/<%=message._id%>?_method=DELETE" method="POST">
+                                        <button class="btn btn-xs btn-danger">Delete</button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    <% } else { %>
-                        <div class="row">
-                            <p class="bubble"><%= message.text %></p>
-                            <strong><%= message.author.name %></strong>
-                        </div>
+                        <% } else { %>
+                            <div class="row">
+                                <p class="bubble"><%= message.text %></p>
+                                <strong><%= message.author.name %></strong>
+                            </div>
+                        <% } %>
                     <% } %>
                 <% }) %>
             </div>

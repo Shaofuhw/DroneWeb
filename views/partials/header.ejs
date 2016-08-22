@@ -9,6 +9,7 @@
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMBBWc3H4YDViXAZTV_0tcFHwFD6S0png"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
         <% if (url === "/") { %>
@@ -35,13 +36,10 @@
                         <% } else { %>
                             <li><a href="/">Inicio</a></li>
                         <% } %>
-                        
-                        <% if (currentUser) { %>
-                            <% if (url === "/works") { %>
-                                <li class="active"><a href="/works">Trabajos</a></li>
-                            <% } else { %>
-                                <li><a href="/works">Trabajos</a></li>
-                            <% } %>
+                        <% if (url === "/works") { %>
+                            <li class="active"><a href="/works">Trabajos</a></li>
+                        <% } else { %>
+                            <li><a href="/works">Trabajos</a></li>
                         <% } %>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
