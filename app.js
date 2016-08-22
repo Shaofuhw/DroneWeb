@@ -15,8 +15,8 @@ var express     = require('express'),
     workRoutes      = require('./routes/works'),
     messageRoutes   = require('./routes/messages');
 
-mongoose.connect("mongodb://localhost/drone_web");
-//mongoose.connect(process.env.DATABASEURL);
+//mongoose.connect("mongodb://localhost/drone_web");
+mongoose.connect(process.env.DATABASEURL);
     
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
