@@ -26,25 +26,15 @@
                     <button id="done-button" class="list-group-item">Completado</button>
                     <button id="off-button" class="list-group-item">Abandonado</button>
                 </div>
-                <div class="btn-group" role="group" style="margin-bottom: 20px">
-                    <button type="button" class="btn btn-default" id="previous-page"><</button>
-                    <% for(var i = 1; i < n+1; i++){ %>
-                        <% if(i == 1) { %>
-                            <button type="button" class="btn btn-default btn-page <%=i%> active" value="<%=i%>"><%=i%></button>
-                        <% } else if(i == n){ %>
-                            <button type="button" class="btn btn-default btn-page <%=i%> last" value="<%=i%>"><%=i%></button>
-                        <% } else { %>
-                            <button type="button" class="btn btn-default btn-page <%=i%>" value="<%=i%>"><%=i%></button>
-                        <% } %>
-                    <% } %>
-                    <button type="button" class="btn btn-default" id="next-page">></button>
-                </div>
-                <a class="btn btn-lg btn-success" style="width: 100%; margin-bottom: 30px" href="/works/new">Nuevo Trabajo</a>
+                <div id="page-buttons"></div>
+                <% if(currentUser){ %>
+                    <a class="btn btn-lg btn-success" style="width: 100%; margin-bottom: 30px" href="/works/new">Nuevo Trabajo</a>
+                <% } %>
             </div>
             <div class="col-xs-12 col-md-9" id="works-list">
             </div>
         </div>
     </div>
     
-    <script src="javascript/works-index.js"></script>
+    <script src="../javascript/works-index.js"></script>
 <% include ../partials/footer %>
